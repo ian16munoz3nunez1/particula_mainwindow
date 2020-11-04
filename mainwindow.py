@@ -1,4 +1,4 @@
-from PySide2.QtWidgets import QMainWindow
+from PySide2.QtWidgets import QMainWindow, QFileDialog, QMessageBox
 from PySide2.QtCore import Slot
 from ui_mainwindow import Ui_MainWindow
 from Particula.mainclass import MainClass
@@ -10,10 +10,54 @@ class MainWindow(QMainWindow):
         self.mainclass = MainClass()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.ui.actionAbrir.triggered.connect(self.abrir_archivo)
+        self.ui.actionGuardar.triggered.connect(self.guardar_archivo)
         self.ui.agregar_inicio_pushButton.clicked.connect(self.agregar_inicio)
         self.ui.agregar_final_pushButton.clicked.connect(self.agregar_final)
         self.ui.mostrar_pushButton.clicked.connect(self.mostrar)
 
+    @Slot()
+    def abrir_archivo(self):
+        ubicacion = QFileDialog.getOpenFileName(
+            self,
+            "Abrir archivo",
+            ".",
+            "JSON (*.json)"
+        )[0]
+        if self.mainclass.abrir(ubicacion):
+            QMessageBox.information(
+                self,
+                "Operacion exitosa",
+                "El archivo " + ubicacion + " se abrio correctamente"
+            )
+        else:
+            QMessageBox.critical(
+                self,
+                "Error",
+                "Error al abrir el archivo"
+            )
+
+    @Slot()
+    def guardar_archivo(self):
+        ubicacion = QFileDialog.getSaveFileName(
+            self,
+            "Guardar archivo",
+            ".",
+            "JSON (*.json)"
+        )[0]
+        if self.mainclass.guardar(ubicacion):
+            QMessageBox.information(
+                self,
+                "Operacion exitosa",
+                "El archivo " + ubicacion + " se guardo correctamente"
+            )
+        else:
+            QMessageBox.critical(
+                self,
+                "Error",
+                "Error al guardar el archivo"
+            )
+    
     @Slot()
     def agregar_inicio(self):
         id = self.ui.id_lineEdit.text()
