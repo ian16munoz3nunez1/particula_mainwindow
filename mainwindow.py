@@ -82,11 +82,10 @@ class MainWindow(QMainWindow):
                 self.ui.tabla.setItem(0, 3, destino_x_widget)
                 self.ui.tabla.setItem(0, 4, destino_y_widget)
                 self.ui.tabla.setItem(0, 5, velocidad_widget)
-                self.ui.tabla.setItem(0, 6, velocidad_widget)
-                self.ui.tabla.setItem(0, 7, distancia_widget)
-                self.ui.tabla.setItem(0, 8, red_widget)
-                self.ui.tabla.setItem(0, 9, green_widget)
-                self.ui.tabla.setItem(0, 10, blue_widget)
+                self.ui.tabla.setItem(0, 6, distancia_widget)
+                self.ui.tabla.setItem(0, 7, red_widget)
+                self.ui.tabla.setItem(0, 8, green_widget)
+                self.ui.tabla.setItem(0, 9, blue_widget)
 
                 encontrado = True
                 return
