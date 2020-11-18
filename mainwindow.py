@@ -183,7 +183,7 @@ class MainWindow(QMainWindow):
             self.ui.graphicsView.scale(1.2, 1.2)
         else:
             self.ui.graphicsView.scale(0.8, 0.8)
-
+    
     @Slot()
     def dibujar(self):
         pen = QPen()
@@ -200,7 +200,6 @@ class MainWindow(QMainWindow):
             blue = particula.blue
 
             color = QColor(red, green, blue)
-
             pen.setColor(color)
 
             self.scene.addEllipse(origen_x, origen_y, 3, 3, pen)
