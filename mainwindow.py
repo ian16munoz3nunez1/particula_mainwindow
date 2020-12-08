@@ -1,7 +1,7 @@
 from PySide2.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QTableWidgetItem, QGraphicsScene
 from PySide2.QtCore import Slot
 from PySide2.QtGui import QPen, QColor
-from pprint import pformat
+import os
 from ui_mainwindow import Ui_MainWindow
 from Particula.mainclass import MainClass
 from Particula.particula import Particula
@@ -19,7 +19,6 @@ class MainWindow(QMainWindow):
         self.ui.agregar_inicio_pushButton.clicked.connect(self.agregar_inicio)
         self.ui.agregar_final_pushButton.clicked.connect(self.agregar_final)
         self.ui.mostrar_datos_pushButton.clicked.connect(self.mostrar_datos)
-        self.ui.mostrar_grafo_pushButton.clicked.connect(self.mostrar_grafo)
 
         self.ui.tabla_mostrar_pushButton.clicked.connect(self.tabla_mostrar)
         self.ui.tabla_buscar_pushButton.clicked.connect(self.tabla_buscar)
@@ -32,6 +31,10 @@ class MainWindow(QMainWindow):
         self.ui.actionId_ascendente.triggered.connect(self.id_ascendente)
         self.ui.actionVelocidad_ascendente.triggered.connect(self.velocidad_ascendente)
         self.ui.actionDistancia_descendente.triggered.connect(self.distancia_descendente)
+
+        self.ui.mostrar_grafo_pushButton.clicked.connect(self.mostrar_grafo)
+        self.ui.actionAmplitud.triggered.connect(self.busqueda_amplitud)
+        self.ui.actionProfundidad.triggered.connect(self.busqueda_profundidad)
 
     @Slot()
     def abrir_archivo(self):
@@ -347,26 +350,40 @@ class MainWindow(QMainWindow):
     def mostrar_grafo(self):
         self.ui.print.clear()
         self.grafo.clear()
-        for particula in self.mainclass:
-            origen_x = particula.origen_x
-            origen_y = particula.origen_y
-            destino_x = particula.destino_x
-            destino_y = particula.destino_y
-            distancia = particula.distancia
+        grafo = self.mainclass.crear_grafo(self.grafo)
+        self.ui.print.insertPlainText(grafo)
 
-            origen = (origen_x, origen_y)
-            destino = (destino_x, destino_y)
-            arista_o = (destino_x, destino_y, distancia)
-            arista_d = (origen_x, origen_y, distancia)
+    @Slot()
+    def busqueda_amplitud(self):
+        origen_x = self.ui.origen_x_spinBox.value()
+        origen_y = self.ui.origen_y_spinBox.value()
+        if not self.mainclass.busqueda_amplitud(self.grafo, origen_x, origen_y):
+            QMessageBox.warning(
+                self,
+                "Aviso",
+                "No es posible leer los valores"
+            )
+        else:
+            os.system("cls")
+            amplitud = self.mainclass.busqueda_amplitud(self.grafo, origen_x, origen_y)
+            print("Amplitud: ")
+            for i in amplitud:
+                print(i)
 
-            if origen in self.grafo:
-                self.grafo[origen].append(arista_o)
-            else:
-                self.grafo[origen] = [arista_o]
-
-            if destino in self.grafo:
-                self.grafo[destino].append(arista_d)
-            else:
-                self.grafo[destino] = [arista_d]
-        str = pformat(self.grafo, width=50, indent=1)
-        self.ui.print.insertPlainText(str)
+    @Slot()
+    def busqueda_profundidad(self):
+        origen_x = self.ui.origen_x_spinBox.value()
+        origen_y = self.ui.origen_y_spinBox.value()
+        if not self.mainclass.busqueda_profundidad(self.grafo, origen_x, origen_y):
+            QMessageBox.warning(
+                self,
+                "Aviso",
+                "No es posible leer los valores"
+            )
+        else:
+            os.system("cls")
+            profundidad = self.mainclass.busqueda_profundidad(self.grafo, origen_x, origen_y)
+            print("Profundidad: ")
+            for i in profundidad:
+                print(i)
+        
