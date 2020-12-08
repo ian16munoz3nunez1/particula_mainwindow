@@ -300,9 +300,17 @@
     </property>
     <addaction name="actionDistancia_descendente"/>
    </widget>
+   <widget class="QMenu" name="menuBusqueda">
+    <property name="title">
+     <string>Algoritmos</string>
+    </property>
+    <addaction name="actionAmplitud"/>
+    <addaction name="actionProfundidad"/>
+   </widget>
    <addaction name="menuArchivo"/>
    <addaction name="menuOrden_ascendente"/>
    <addaction name="menuOrden_descendente"/>
+   <addaction name="menuBusqueda"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionAbrir">
@@ -334,6 +342,16 @@
   <action name="actionDistancia_descendente">
    <property name="text">
     <string>Distancia</string>
+   </property>
+  </action>
+  <action name="actionAmplitud">
+   <property name="text">
+    <string>Busqueda en amplitud</string>
+   </property>
+  </action>
+  <action name="actionProfundidad">
+   <property name="text">
+    <string>Busqueda en profundidad</string>
    </property>
   </action>
  </widget>
