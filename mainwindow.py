@@ -1,7 +1,6 @@
 from PySide2.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QTableWidgetItem, QGraphicsScene
 from PySide2.QtCore import Slot
 from PySide2.QtGui import QPen, QColor
-import os
 from ui_mainwindow import Ui_MainWindow
 from Particula.mainclass import MainClass
 from Particula.particula import Particula
@@ -364,11 +363,9 @@ class MainWindow(QMainWindow):
                 "No es posible leer los valores"
             )
         else:
-            os.system("cls")
+            self.ui.print.clear()
             amplitud = self.mainclass.busqueda_amplitud(self.grafo, origen_x, origen_y)
-            print("Amplitud: ")
-            for i in amplitud:
-                print(i)
+            self.ui.print.insertPlainText("Amplitud: " + "\n" + str(amplitud))
 
     @Slot()
     def busqueda_profundidad(self):
@@ -381,9 +378,7 @@ class MainWindow(QMainWindow):
                 "No es posible leer los valores"
             )
         else:
-            os.system("cls")
+            self.ui.print.clear()
             profundidad = self.mainclass.busqueda_profundidad(self.grafo, origen_x, origen_y)
-            print("Profundidad: ")
-            for i in profundidad:
-                print(i)
+            self.ui.print.insertPlainText("Profundidad: " + "\n" + profundidad)
         
