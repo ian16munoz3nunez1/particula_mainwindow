@@ -380,5 +380,5 @@ class MainWindow(QMainWindow):
         else:
             self.ui.print.clear()
             profundidad = self.mainclass.busqueda_profundidad(self.grafo, origen_x, origen_y)
-            self.ui.print.insertPlainText("Profundidad: " + "\n" + profundidad)
+            self.ui.print.insertPlainText("Profundidad: " + "\n" + str(profundidad))
         
